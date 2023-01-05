@@ -6,3 +6,9 @@
 
 - Init project
 - Login and register API sources
+
+## v 0.2.0
+
+### Feature (1 change)
+
+- Roles and rights

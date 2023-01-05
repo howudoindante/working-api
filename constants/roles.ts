@@ -1,0 +1,20 @@
+import { DELETE_USERS_PERMISSION, PERMISSIONS } from './permissions';
+
+export const ROLE_USER = 'USER';
+export const ROLE_ADMIN = 'ADMINISTRATOR';
+export const ROLES = {
+  [ROLE_USER]: {
+    permissions: [
+      PERMISSIONS.VIEW_USERS_PERMISSION,
+      PERMISSIONS.SEND_MESSAGES_PERMISSION,
+    ],
+  },
+  [ROLE_ADMIN]: {
+    permissions: [
+      PERMISSIONS.VIEW_USERS_PERMISSION,
+      PERMISSIONS.BAN_USERS_PERMISSION,
+      DELETE_USERS_PERMISSION,
+      PERMISSIONS.SEND_MESSAGES_PERMISSION,
+    ],
+  },
+};
