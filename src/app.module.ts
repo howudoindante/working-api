@@ -7,23 +7,24 @@ import { AcceptLanguageResolver, I18nModule, QueryResolver } from 'nestjs-i18n';
 import { InfoModule } from './info/info.module';
 import * as path from 'path';
 import { RoleModule } from './roles/role.module';
+import { PermissionsModule } from './permissions/permissions.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     I18nModule.forRoot({
       fallbackLanguage: 'en',
       loaderOptions: {
         path: path.join(__dirname, '/i18n/'),
         watch: true,
       },
-      resolvers: [
-        { use: QueryResolver, options: ['lang'] },
-        AcceptLanguageResolver,
-      ],
+      resolvers: [new QueryResolver(['lang', 'l']), AcceptLanguageResolver],
     }),
     LoginModule,
     RegisterModule,
     RoleModule,
+    PermissionsModule,
     InfoModule,
   ],
   controllers: [AppController],

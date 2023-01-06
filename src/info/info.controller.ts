@@ -6,8 +6,8 @@ import { Response } from 'express';
 export class InfoController {
   constructor(private readonly infoService: InfoService) {}
 
-  @Get('health')
+  @Get('get_204')
   getConnectionHealth(@Res() res: Response) {
-    res.status(200).send();
+    res.status(204).send();
   }
 }

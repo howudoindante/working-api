@@ -12,3 +12,12 @@
 ### Feature (1 change)
 
 - Roles and rights
+
+## v 0.3.0
+
+### Features (4 changes)
+
+- Appended rights for users
+- Created .env config generator
+- Added lang query property for api calls
+- Created permissions endpoint

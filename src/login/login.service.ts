@@ -13,7 +13,7 @@ export class LoginService {
     private translation: TranslationService,
   ) {}
 
-  async login(credentials: Credentials): Promise<ResponseDTO> {
+  async login(credentials: Credentials, lang: string): Promise<ResponseDTO> {
     try {
       const user = await this.prisma.user.findFirst({
         where: { username: credentials.username },
@@ -21,10 +21,19 @@ export class LoginService {
       if (user) {
         const isPasswordRight = user.password === credentials.password;
         if (isPasswordRight) {
-          const token = this.jwt.generate({
-            id: user.id,
-            username: user.username,
-          });
+          const tokenError = await this.translation.translate(
+            'errors.token.create',
+            {
+              lang,
+            },
+          );
+          const token = this.jwt.generate(
+            {
+              id: user.id,
+              username: user.username,
+            },
+            tokenError,
+          );
           return {
             data: {
               token,
@@ -35,7 +44,9 @@ export class LoginService {
 
       // If credentials wrong
 
-      const error = await this.translation.translate('errors.authentication');
+      const error = await this.translation.translate('errors.authentication', {
+        lang,
+      });
       throw new Error(error);
     } catch (e) {
       throw new HttpException(e.message, 401);

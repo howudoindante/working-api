@@ -3,14 +3,15 @@ import { sign, verify } from 'jsonwebtoken';
 import { ITokenPayloadType } from '../../types/token.type';
 import { Logger } from '../../utils/Logging';
 import { ApiError } from '../../utils/ApiErrors';
+import * as process from 'process';
 
 @Injectable()
 export class JwtService {
-  generate(payload: ITokenPayloadType) {
+  generate(payload: ITokenPayloadType, error: string) {
     try {
-      const token = sign(payload, '123');
+      const token = sign(payload, process.env.SECRET);
       if (!token) {
-        throw new ApiError(401, '123');
+        throw new ApiError(401, error);
       } else {
         return token;
       }
@@ -20,6 +21,6 @@ export class JwtService {
   }
 
   decode(token: string) {
-    return verify(token, '123');
+    return verify(token, process.env.SECRET);
   }
 }

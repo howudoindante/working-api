@@ -1,0 +1,6 @@
+{
+  "VIEW_USERS_PERMISSION": "View users",
+  "BAN_USERS_PERMISSION": "Ban users",
+  "DELETE_USERS_PERMISSION": "Delete users",
+  "SEND_MESSAGES_PERMISSION": "Send messages"
+}

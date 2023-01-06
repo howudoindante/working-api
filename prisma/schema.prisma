@@ -8,27 +8,30 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement()) @unique
+  id       Int     @id @unique @default(autoincrement())
   username String  @unique
   email    String?
   password String
   name     String?
+  role     Role    @relation(fields: [roleId], references: [id])
+  roleId   Int
 }
 
 model Role {
-  id              Int                @id @default(autoincrement()) @unique
+  id              Int                @id @unique @default(autoincrement())
   name            String             @unique
   RolePermissions RolesPermissions[]
+  User            User[]
 }
 
 model Permission {
-  id              Int                @id @default(autoincrement()) @unique
+  id              Int                @id @unique @default(autoincrement())
   name            String             @unique
   RolePermissions RolesPermissions[]
 }
 
 model RolesPermissions {
-  id           Int        @id @default(autoincrement()) @unique
+  id           Int        @id @unique @default(autoincrement())
   role         Role       @relation(fields: [roleId], references: [id])
   roleId       Int
   permission   Permission @relation(fields: [permissionId], references: [id])

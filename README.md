@@ -36,8 +36,8 @@ $ npm install
 ### Create .env.local file
 
 ```bash
-$ touch .env.local
-$ echo SECRET=your_secret_key >>.env.local
+$ touch .env
+$ echo -e "DATABASE_URL=\"file:./main.db\"\nSECRET=your_secret_key" >> .env
 ```
 
 ### Create sqlite3 database file in prisma folder
@@ -45,6 +45,22 @@ $ echo SECRET=your_secret_key >>.env.local
 ```bash
 $ sqlite3
 $ .open --new main.db
+```
+
+### Apply migrations
+
+#### Reset all data in db and apply migrations and seeds
+
+```bash
+$ npx prisma migrate reset
+```
+
+#### Some commands for dev
+
+```bash
+$ prisma migrate dev --name your-name
+$ npx prisma db seed 
+$ npx prisma migrate dev
 ```
 
 ## Running the app

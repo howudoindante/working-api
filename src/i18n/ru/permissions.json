@@ -1,0 +1,6 @@
+{
+  "VIEW_USERS_PERMISSION": "Просмотр пользователей",
+  "BAN_USERS_PERMISSION": "Блокировка пользователей",
+  "DELETE_USERS_PERMISSION": "Удаление пользователей",
+  "SEND_MESSAGES_PERMISSION": "Отправка сообщений"
+}

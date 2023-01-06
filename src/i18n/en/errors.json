@@ -1,4 +1,13 @@
 {
   "authentication": "Authentication error",
-  "registration": "Registration error"
+  "registration": "Registration error",
+  "roles": {
+    "get": "Error getting roles"
+  },
+  "permissions": {
+    "get": "Error getting permissions"
+  },
+  "token": {
+    "create": "Token creation error"
+  }
 }
