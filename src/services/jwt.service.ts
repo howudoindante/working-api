@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { sign, verify } from 'jsonwebtoken';
-import { ITokenPayloadType } from '../../types/token.type';
+import { ITokenDecoded, ITokenPayloadType } from '../../types/token.type';
 import { Logger } from '../../utils/Logging';
 import { ApiError } from '../../utils/ApiErrors';
 import * as process from 'process';
@@ -20,7 +20,7 @@ export class JwtService {
     }
   }
 
-  decode(token: string) {
-    return verify(token, process.env.SECRET);
+  decode(token: string): ITokenDecoded {
+    return verify(token, process.env.SECRET) as ITokenDecoded;
   }
 }

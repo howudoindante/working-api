@@ -17,6 +17,12 @@ export class LoginService {
     try {
       const user = await this.prisma.user.findFirst({
         where: { username: credentials.username },
+        select: {
+          id: true,
+          username: true,
+          password: true,
+          role: true,
+        },
       });
       if (user) {
         const isPasswordRight = user.password === credentials.password;
@@ -31,6 +37,7 @@ export class LoginService {
             {
               id: user.id,
               username: user.username,
+              role: user.role.name,
             },
             tokenError,
           );

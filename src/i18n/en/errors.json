@@ -9,5 +9,8 @@
   },
   "token": {
     "create": "Token creation error"
+  },
+  "users": {
+    "me": "Error getting user data"
   }
 }

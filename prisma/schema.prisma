@@ -8,13 +8,14 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @unique @default(autoincrement())
-  username String  @unique
-  email    String?
-  password String
-  name     String?
-  role     Role    @relation(fields: [roleId], references: [id])
-  roleId   Int
+  id        Int     @id @unique @default(autoincrement())
+  username  String  @unique
+  email     String?
+  password  String
+  name      String?
+  role      Role    @relation(fields: [roleId], references: [id])
+  roleId    Int
+  shortlink String? @default(uuid())
 }
 
 model Role {

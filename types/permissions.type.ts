@@ -1,0 +1,12 @@
+import {
+  BAN_USERS_PERMISSION,
+  DELETE_USERS_PERMISSION,
+  SEND_MESSAGES_PERMISSION,
+  VIEW_USERS_PERMISSION,
+} from '../constants/permissions';
+
+export type TPermissions =
+  | typeof VIEW_USERS_PERMISSION
+  | typeof BAN_USERS_PERMISSION
+  | typeof DELETE_USERS_PERMISSION
+  | typeof SEND_MESSAGES_PERMISSION;

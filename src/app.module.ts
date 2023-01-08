@@ -9,6 +9,7 @@ import * as path from 'path';
 import { RoleModule } from './roles/role.module';
 import { PermissionsModule } from './permissions/permissions.module';
 import { ConfigModule } from '@nestjs/config';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { ConfigModule } from '@nestjs/config';
     RoleModule,
     PermissionsModule,
     InfoModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
