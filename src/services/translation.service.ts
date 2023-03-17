@@ -5,10 +5,10 @@ import { I18nService, TranslateOptions } from 'nestjs-i18n';
 export class TranslationService {
   constructor(private readonly i18n: I18nService) {}
 
-  async translate(
+  async translate<T = string>(
     key: string,
     options: TranslateOptions = {},
-  ): Promise<string> {
-    return this.i18n.translate(key, options);
+  ): Promise<T> {
+    return this.i18n.translate(key, options) as T;
   }
 }

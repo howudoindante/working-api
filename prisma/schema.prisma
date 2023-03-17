@@ -8,14 +8,16 @@ datasource db {
 }
 
 model User {
-  id        Int     @id @unique @default(autoincrement())
-  username  String  @unique
+  id        Int          @id @unique @default(autoincrement())
+  username  String       @unique
   email     String?
   password  String
   name      String?
-  role      Role    @relation(fields: [roleId], references: [id])
+  role      Role         @relation(fields: [roleId], references: [id])
   roleId    Int
-  shortlink String? @default(uuid())
+  Sender    Friendship[] @relation("sender")
+  Recipient Friendship[] @relation("recipient")
+  shortlink String?      @default(uuid())
 }
 
 model Role {
@@ -37,4 +39,20 @@ model RolesPermissions {
   roleId       Int
   permission   Permission @relation(fields: [permissionId], references: [id])
   permissionId Int
+}
+
+model FriendshipStatuses {
+  id         Int          @id @unique @default(autoincrement())
+  name       String       @unique
+  Friendship Friendship[]
+}
+
+model Friendship {
+  id                 Int                @id @default(autoincrement())
+  sender             User               @relation("sender", fields: [senderId], references: [id])
+  senderId           Int
+  recipient          User               @relation("recipient", fields: [recipientId], references: [id])
+  recipientId        Int
+  friendshipStatusId Int
+  friendshipStatus   FriendshipStatuses @relation(fields: [friendshipStatusId], references: [id])
 }

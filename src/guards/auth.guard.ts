@@ -17,9 +17,10 @@ export class AuthGuard implements CanActivate {
 
   validateRequest(request: any): boolean {
     try {
-      const token = request.headers[TOKENFIELD];
+      const token = request.cookies[TOKENFIELD];
       if (token) {
         const t = new JwtService().decode(token);
+
         if (t) {
           if (this.middleware) {
             return this.middleware({

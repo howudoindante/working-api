@@ -10,6 +10,7 @@ import { RoleModule } from './roles/role.module';
 import { PermissionsModule } from './permissions/permissions.module';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
+import { FriendshipModule } from './friendship/friendship.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { UsersModule } from './users/users.module';
     PermissionsModule,
     InfoModule,
     UsersModule,
+    FriendshipModule,
   ],
   controllers: [AppController],
   providers: [AppService],

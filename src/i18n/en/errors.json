@@ -1,4 +1,8 @@
 {
+  "default": {
+    "code": 500,
+    "text": "Something went wrong, try again"
+  },
   "authentication": "Authentication error",
   "registration": "Registration error",
   "roles": {
@@ -8,7 +12,29 @@
     "get": "Error getting permissions"
   },
   "token": {
+    "decode": {
+      "code": 401,
+      "text": "Cannot authorize user with this token or decode them"
+    },
     "create": "Token creation error"
+  },
+  "friendship": {
+    "cannot-unblock": {
+      "code": 403,
+      "text": "Cannot perform unblock action, because you don't block this user"
+    },
+    "entities-not-found": {
+      "code": 401,
+      "text": "You are provide invalid friend shortlink or not authorize in app"
+    },
+    "sender-not-found": {
+      "code": 401,
+      "text": "You are not available to perform this request"
+    },
+    "not-exists": {
+      "code": 403,
+      "text": "Cannot perform this action, because you not have active requests or blocked by another user"
+    }
   },
   "users": {
     "me": "Error getting user data"

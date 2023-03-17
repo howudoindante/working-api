@@ -1,23 +1,45 @@
 import { PrismaClient } from '@prisma/client';
-import { ROLES } from '../constants/roles';
+import { ROLE_USER, ROLES } from '../constants/roles';
 import { PERMISSIONS } from '../constants/permissions';
-
-// const friendshipStatusesList = [
-//   'PENDING_FIRST_SECOND',
-//   'PENDING_SECOND_FIRST',
-//   'FRIENDS',
-//   'BLOCK_FIRST_SECOND',
-//   'BLOCK_SECOND_FIRST',
-//   'BLOCK_BOTH',
-// ];
+import { FriendshipStatuses } from '../constants/friendship';
+import { faker } from '@faker-js/faker';
 
 const prisma = new PrismaClient();
+const users = [
+  {
+    username: 'rustam2007',
+    password: 'rustamx',
+    shortlink: 'vidget',
+    email: faker.internet.email(),
+    name: faker.name.fullName(),
+    role: {
+      connect: { name: ROLE_USER },
+    },
+  },
+  {
+    username: faker.internet.userName(),
+    password: faker.internet.password(),
+    shortlink: faker.word.verb(),
+    email: faker.internet.email(),
+    name: faker.name.fullName(),
+    role: {
+      connect: { name: ROLE_USER },
+    },
+  },
+];
 
 async function main() {
   for (const permission in PERMISSIONS) {
     await prisma.permission.create({
       data: {
         name: PERMISSIONS[permission],
+      },
+    });
+  }
+  for (const fs in FriendshipStatuses) {
+    await prisma.friendshipStatuses.create({
+      data: {
+        name: fs,
       },
     });
   }
@@ -42,6 +64,13 @@ async function main() {
         },
       });
     }
+  }
+  for (let key = 0; key < users.length; key++) {
+    await prisma.user.create({
+      data: {
+        ...users[key],
+      },
+    });
   }
 }
 

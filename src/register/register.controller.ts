@@ -10,7 +10,7 @@ export class RegisterController {
 
   @Post()
   async register(
-    @Body() credentials: Credentials,
+    @Body() credentials: Required<Credentials>,
     @I18nLang() lang: string,
   ): Promise<ResponseDTO> {
     return await this.registerService.register(credentials, lang);

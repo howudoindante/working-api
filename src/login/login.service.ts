@@ -1,9 +1,9 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { Credentials } from './interfaces/users.interface';
 import { PrismaService } from '../services/prisma.service';
-import { ResponseDTO } from '../../dto/response.dto';
 import { JwtService } from '../services/jwt.service';
 import { TranslationService } from '../services/translation.service';
+import { ResponseDTO } from '../../dto/response.dto';
 
 @Injectable()
 export class LoginService {
@@ -13,7 +13,12 @@ export class LoginService {
     private translation: TranslationService,
   ) {}
 
-  async login(credentials: Credentials, lang: string): Promise<ResponseDTO> {
+  async login(
+    req,
+    res,
+    credentials: Credentials,
+    lang: string,
+  ): Promise<ResponseDTO> {
     try {
       const user = await this.prisma.user.findFirst({
         where: { username: credentials.username },
@@ -24,6 +29,7 @@ export class LoginService {
           role: true,
         },
       });
+
       if (user) {
         const isPasswordRight = user.password === credentials.password;
         if (isPasswordRight) {
@@ -41,6 +47,11 @@ export class LoginService {
             },
             tokenError,
           );
+          res.cookie('vispsprt', token, {
+            httpOnly: true,
+            domain: process.env.FRONTEND_DOMAIN,
+          });
+
           return {
             data: {
               token,

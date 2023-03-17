@@ -4,6 +4,7 @@ import { ITokenDecoded, ITokenPayloadType } from '../../types/token.type';
 import { Logger } from '../../utils/Logging';
 import { ApiError } from '../../utils/ApiErrors';
 import * as process from 'process';
+import { TOKENFIELD } from '../../config/config';
 
 @Injectable()
 export class JwtService {
@@ -22,5 +23,17 @@ export class JwtService {
 
   decode(token: string): ITokenDecoded {
     return verify(token, process.env.SECRET) as ITokenDecoded;
+  }
+
+  decodeFromRequest(req) {
+    try {
+      if (req.cookies[TOKENFIELD]) {
+        return this.decode(req.cookies[TOKENFIELD]);
+      } else {
+        throw new ApiError(401, 'Token is not provided');
+      }
+    } catch (e) {
+      return null;
+    }
   }
 }

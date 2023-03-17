@@ -18,34 +18,23 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get('me')
-  async me(
+  me(
     @Request() request,
     @I18nLang() lang,
   ): Promise<ResponseDTO<PrivateUserDTO>> {
     return this.usersService.getMyData(request, lang);
   }
 
-  @Get(':shortname')
-  findOne(@Param() param) {
-    console.log(param.shortname);
-    return {
-      data: {
-        name: 'Test',
-        username: 'slayyedx',
-        email: '123@mail.ru',
-      },
-    };
+  @Get(':shortlink')
+  findByShortName(@Param() param, @I18nLang() lang) {
+    return this.usersService.getUserByShortlink(
+      { shortlink: param.shortlink },
+      lang,
+    );
   }
 
   @Get()
-  findByQuery(@Query() query) {
-    console.log(query);
-    return {
-      data: {
-        name: 'Test',
-        username: 'slayyedx',
-        email: '123@mail.ru',
-      },
-    };
+  findByQuery(@Query() query, @I18nLang() lang) {
+    return this.usersService.getUserByQuery(query, lang);
   }
 }

@@ -12,7 +12,10 @@ export class RegisterService {
     private translation: TranslationService,
   ) {}
 
-  async register(credentials: Credentials, lang: string): Promise<ResponseDTO> {
+  async register(
+    credentials: Required<Credentials>,
+    lang: string,
+  ): Promise<ResponseDTO> {
     try {
       const user = await this.prisma.user.findFirst({
         where: { username: credentials.username },
@@ -29,8 +32,8 @@ export class RegisterService {
             data: {
               username: credentials.username,
               password: credentials.password,
-              email: null,
-              name: null,
+              email: credentials.email ?? null,
+              name: credentials.name ?? null,
               roleId: userRole.id,
             },
           });
